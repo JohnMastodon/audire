@@ -28,15 +28,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Grant execute permission for gradlew
-      run: jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore app/build/outputs/apk/release/app-release-unsigned.apk androiddebugkey -storepass android
-    - name: Copy release APK
-      run: cp ./app/build/outputs/apk/release/app-release-unsigned.apk ./app/build/outputs/apk/release/app-release-signed.apk
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: app-release
-        path: ./app/build/outputs/apk/release/app-release-signed.apk
+        path: ./app/build/outputs/apk/release/app-release-unsigned.apk
     - name: GitHub release
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/main'
