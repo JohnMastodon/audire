@@ -33,7 +33,7 @@ jobs:
     - name: Copy release APK
       run: cp ./app/build/outputs/apk/release/app-release-unsigned.apk ./app/build/outputs/apk/release/app-release-signed.apk
     - name: Upload artifact
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v4
       with:
         name: app-release
         path: ./app/build/outputs/apk/release/app-release-signed.apk
