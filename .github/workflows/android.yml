@@ -36,7 +36,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: app-release
-        path: ./app/build/outputs/apk/release/app-release-unsigned.apk
+        path: ./app/build/outputs/apk/release/app-release-signed.apk
     - name: GitHub release
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/main'
