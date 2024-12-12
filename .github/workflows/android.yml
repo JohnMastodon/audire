@@ -28,22 +28,15 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Sign APK
-      uses: r0adkll/sign-android-release@v1   
-      id: sign_app
-      with:
-       releaseDirectory: ./app/build/outputs/apk/release/
-       signingKeyBase64: ${{ secrets.SIGNING_KEY }}
-       alias: ${{ secrets.ALIAS }}
-       keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}    
-       keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - name: Grant execute permission for gradlew
+      run: jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore ~/.android/debug.keystore app/build/outputs/apk/release/app-release-unsigned.apk androiddebugkey -storepass android
     - name: Copy release APK
-      run: cp ${{ steps.sign_app.outputs.signedReleaseFile }} ./app/build/outputs/apk/release/app-release-signed.apk
+      run: cp ./app/build/outputs/apk/release/app-release-unsigned.apk ./app/build/outputs/apk/release/app-release-signed.apk
     - name: Upload artifact
       uses: actions/upload-artifact@v1
       with:
         name: app-release
-        path: ./app/build/outputs/apk/release/app-release-signed.apk
+        path: ./app/build/outputs/apk/release/app-release-unsigned.apk
     - name: GitHub release
       uses: softprops/action-gh-release@v1
       if: github.ref == 'refs/heads/main'
