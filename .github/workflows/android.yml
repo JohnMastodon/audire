@@ -40,6 +40,6 @@ jobs:
         draft: true
         prerelease: false
         tag_name: "vnext"
-        token: ${{ secrets.ACCESS_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
         files: |
-          ./app/build/outputs/apk/release/app-release-signed.apk
+          ./app/build/outputs/apk/release/app-release-unsigned.apk

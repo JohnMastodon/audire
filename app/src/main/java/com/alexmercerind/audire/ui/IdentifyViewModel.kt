@@ -178,8 +178,9 @@ class IdentifyViewModel : ViewModel() {
 
                             val music = repository.identify(result.toByteArray(), current)
 
-                            // NOTE: Only allow "well known" music (with album available in it) in partial samples.
-                            if (music?.album != null) {
+                            // NOTE: To only allow music with album available in it in partial samples
+                            //       Check music?.album
+                            if (music != null) {
                                 if (_identifyMusic != music) {
                                     _identifyMusic = music
                                     _music.emit(music)
